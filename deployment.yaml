@@ -1,0 +1,54 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+        name: jenkins
+        labels:
+                app: jenkins
+spec:
+        replicas: 1
+        selector:
+                matchLabels:
+                        app: jenkins
+        template:
+                metadata:
+                        labels: 
+                                app: jenkins
+                spec:
+                        containers:
+                        - name: jenkins
+                          image: nexus.lan:5000/home/jenkins-arm:latest 
+                          ports:
+                          - containerPort: 8080
+                          volumeMounts:
+                          - mountPath: /var/run/docker.sock
+                            name: docker-socket 
+                          - mountPath: /usr/local/jenkins
+                            name: jenkins-data
+                        volumes:
+                        - name: docker-socket
+                          hostPath:
+                                  path: /var/run/docker.sock
+                                  type: File
+                        - name: jenkins-data
+                          persistentVolumeClaim:
+                                claimName: jenkins-pvc
+                        imagePullSecrets: 
+                        - name: regcred
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+        name: jenkins
+        labels:
+                app: jenkins
+spec:
+        ports:
+        - port: 80
+          protocol: TCP
+          targetPort: 8080
+        
+        selector:
+          app: jenkins
+
