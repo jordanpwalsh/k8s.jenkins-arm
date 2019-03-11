@@ -25,7 +25,7 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
     $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
 
 #Setup kubernetes repo
-RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg apt-key add - && \
+RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
     echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
     sudo apt-get update && \
     apt-get install -y kubectl
