@@ -2,7 +2,7 @@ FROM resin/rpi-raspbian:latest
 
 # Get system up to date and install deps.
 #RUN apt-get update; apt-get --yes upgrade; 
-RUN apt-get update; --yes install \
+RUN apt-get update; apt-get --yes install \
     apt-transport-https \
     ca-certificates \
     curl \
