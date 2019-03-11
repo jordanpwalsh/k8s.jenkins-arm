@@ -1,14 +1,15 @@
 FROM resin/rpi-raspbian:latest
 
 # Get system up to date and install deps.
-RUN apt-get update; apt-get --yes upgrade; apt-get --yes install \
+#RUN apt-get update; apt-get --yes upgrade; 
+RUN apt-get --yes install \
     apt-transport-https \
     ca-certificates \
     curl \
     gnupg2 \
     software-properties-common \ 
-    libapparmor-dev && \
-    git && \
+    libapparmor-dev \
+    git \
     apt-transport-https && \
     apt-get clean && apt-get autoremove -q && \
     rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man /tmp/*
