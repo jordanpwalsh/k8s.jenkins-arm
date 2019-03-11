@@ -17,6 +17,7 @@ spec:
                 spec:
                         containers:
                         - name: jenkins
+                          imagePullPolicy: Always
                           image: nexus.lan:5000/home/jenkins-arm:latest 
                           ports:
                           - containerPort: 8080
