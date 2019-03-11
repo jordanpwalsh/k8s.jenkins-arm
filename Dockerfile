@@ -9,6 +9,7 @@ RUN apt-get update; apt-get --yes upgrade; apt-get --yes install \
     software-properties-common \ 
     libapparmor-dev && \
     git && \
+    apt-transport-https && \
     apt-get clean && apt-get autoremove -q && \
     rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man /tmp/*
 
@@ -21,6 +22,12 @@ RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | te
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - && \
     echo "deb [arch=armhf] https://download.docker.com/linux/debian \
     $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
+
+#Setup kubernetes repo
+RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg apt-key add - && \
+    echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
+    sudo apt-get update && \
+    apt-get install -y kubectl
 
 # Make sure the Oracle Java 8 license is pre-accepted, and install Java 8 + Docker
 RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections  && \
