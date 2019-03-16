@@ -18,7 +18,7 @@ spec:
                         containers:
                         - name: jenkins
                           imagePullPolicy: Always
-                          image: 127.0.0.1:30035/jenkins-arm:latest 
+                          image: 127.0.0.1:30035/jenkins-armv7l:latest 
                           ports:
                           - containerPort: 8080
                           volumeMounts:
