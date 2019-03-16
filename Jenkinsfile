@@ -34,12 +34,12 @@ node {
         //}
     }
 
-    stage("Container Deploy") {
-        withKubeConfig([credentialsId: 'kubeconfig', serverUrl: "https://kubernetes.default", contextName: 'kubernetes-admin@kubernetes', clusterName: 'kubernetes']) { //default is namespace
-	        sh "kubectl apply -f k8s-app.yaml"
-            sh "kubectl set image deployment/${appName} ${appName}=${imageName}:${tag} --record"
-        }
-    }
+    // stage("Container Deploy") {
+    //     withKubeConfig([credentialsId: 'kubeconfig', serverUrl: "https://kubernetes.default", contextName: 'kubernetes-admin@kubernetes', clusterName: 'kubernetes']) { //default is namespace
+	//         sh "kubectl apply -f k8s-app.yaml"
+    //         sh "kubectl set image deployment/${appName} ${appName}=${imageName}:${tag} --record"
+    //     }
+    // }
 
     //we dont want to actually deploy jenkins becuase this is running in jenkins, just keep image updated
     //  stage("Pod Rollout") {
